@@ -5,23 +5,21 @@
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
-      <boolProp name="TestPlan.functional_mode">false</boolProp>
-      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
     </TestPlan>
     <hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Predict API ">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Search API ">
         <intProp name="ThreadGroup.num_threads">5</intProp>
         <intProp name="ThreadGroup.ramp_time">1</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
-          <intProp name="LoopController.loops">-1</intProp>
+          <stringProp name="LoopController.loops">20</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Predict API">
-          <stringProp name="HTTPSampler.domain">dev-1viu-api-gateway.ottuat.com</stringProp>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Search API">
+          <stringProp name="HTTPSampler.domain">dev-1viu-api-gateway-alb.ottuat.com</stringProp>
           <stringProp name="HTTPSampler.port">80</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
           <stringProp name="HTTPSampler.path">/api/mobile</stringProp>
@@ -40,7 +38,7 @@
               </elementProp>
               <elementProp name="platform_flag_label" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">web</stringProp>
+                <stringProp name="Argument.value">tv</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 <stringProp name="Argument.name">platform_flag_label</stringProp>
@@ -75,7 +73,7 @@
               </elementProp>
               <elementProp name="r" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">%2Fsearch%2Fprediction</stringProp>
+                <stringProp name="Argument.value">%2Fsearch%2Fvideo</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 <stringProp name="Argument.name">r</stringProp>
@@ -84,7 +82,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Data For Keywords" enabled="true">
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Data For Keywords">
           <stringProp name="delimiter">,</stringProp>
           <stringProp name="fileEncoding">UTF-8</stringProp>
           <stringProp name="filename">/jmeter/output/keywords.txt</stringProp>
@@ -96,44 +94,7 @@
           <stringProp name="variableNames">keyword</stringProp>
         </CSVDataSet>
         <hashTree/>
-        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
-          <boolProp name="ResultCollector.error_logging">false</boolProp>
-          <objProp>
-            <name>saveConfig</name>
-            <value class="SampleSaveConfiguration">
-              <time>true</time>
-              <latency>true</latency>
-              <timestamp>false</timestamp>
-              <success>true</success>
-              <label>true</label>
-              <code>true</code>
-              <message>true</message>
-              <threadName>true</threadName>
-              <dataType>true</dataType>
-              <encoding>false</encoding>
-              <assertions>true</assertions>
-              <subresults>true</subresults>
-              <responseData>false</responseData>
-              <samplerData>false</samplerData>
-              <xml>false</xml>
-              <fieldNames>true</fieldNames>
-              <responseHeaders>false</responseHeaders>
-              <requestHeaders>false</requestHeaders>
-              <responseDataOnError>false</responseDataOnError>
-              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-              <assertionsResultsToSave>0</assertionsResultsToSave>
-              <bytes>true</bytes>
-              <sentBytes>true</sentBytes>
-              <url>true</url>
-              <threadCounts>true</threadCounts>
-              <idleTime>true</idleTime>
-              <connectTime>true</connectTime>
-            </value>
-          </objProp>
-          <stringProp name="filename">D:\JMeter\responses\summary-predict.txt</stringProp>
-        </ResultCollector>
-        <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -170,8 +131,8 @@
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="true">
-          <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
+          <boolProp name="ResultCollector.error_logging">true</boolProp>
           <objProp>
             <name>saveConfig</name>
             <value class="SampleSaveConfiguration">
@@ -207,8 +168,45 @@
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="SimpleDataWriter" testclass="ResultCollector" testname="Simple Data Writer" enabled="true">
-          <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table">
+          <boolProp name="ResultCollector.error_logging">true</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="SimpleDataWriter" testclass="ResultCollector" testname="Simple Data Writer">
+          <boolProp name="ResultCollector.error_logging">true</boolProp>
           <objProp>
             <name>saveConfig</name>
             <value class="SampleSaveConfiguration">
@@ -243,10 +241,10 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">/jmeter/output/predict.xml</stringProp>
+          <stringProp name="filename">/jmeter/output/search.xml</stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="HTTP Code 200 Assertion" enabled="true">
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="HTTP Code 200 Assertion">
           <collectionProp name="Asserion.test_strings">
             <stringProp name="49586">200</stringProp>
           </collectionProp>
@@ -256,19 +254,40 @@
           <intProp name="Assertion.test_type">16</intProp>
         </ResponseAssertion>
         <hashTree/>
-        <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="Fields Assertion" enabled="true">
+        <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="Fields Assertion">
           <stringProp name="BeanShellAssertion.query">import org.json.*;
 import org.apache.jorphan.util.JMeterException;
 
 String responseCode = prev.getResponseCode();
+
+//if ( responseCode != &quot;200&quot; ) {
+//    Failure = true;
+//    FailureMessage = &quot;Assertion failed: HTTP response code is not 200, but &quot; + responseCode + &quot;.&quot;;
+//    log.error(FailureMessage);
+//    return;
+//}
+
 String responseData = prev.getResponseDataAsString();
 JSONObject responseJson = new JSONObject(responseData);
 JSONObject data = responseJson.getJSONObject(&quot;data&quot;);
-
+JSONArray seriesArray = data.optJSONArray(&quot;series&quot;);
+JSONArray movieArray = data.optJSONArray(&quot;movie&quot;);
+JSONArray productArray = data.optJSONArray(&quot;product&quot;);
 
 String[] requiredLevel1Fields = {
    &quot;status&quot;, &quot;server&quot;,&quot;data&quot;
 };
+
+JSONObject status = responseJson.getJSONObject(&quot;status&quot;);
+int code = status.getInt(&quot;code&quot;);
+int expectCode = 0;
+if(code != expectCode){
+	Failure = true;
+    FailureMessage = &quot;Assertion failed: code field is not 0 ! code = &apos;&quot; + code + &quot;&apos; in response.&quot;;
+    log.error(FailureMessage);
+    return;
+}
+
 for (String field : requiredLevel1Fields) {
     if (!responseJson.has(field)) {
         Failure = true;
@@ -279,54 +298,27 @@ for (String field : requiredLevel1Fields) {
 }
 
 
-JSONObject status = responseJson.getJSONObject(&quot;status&quot;);
-int code = status.getInt(&quot;code&quot;);
-int expectCode = 0;
-if(code != expectCode){
-    Failure = true;
-    FailureMessage = &quot;Assertion failed: code field is not 0 ! code = &apos;&quot; + code + &quot;&apos; in response.&quot;;
-    log.error(FailureMessage);
-    return;
-}
 
 
-String[] dataFields = {&quot;series&quot;, &quot;actor&quot;};
-for (String field : dataFields) {
-    if (!data.has(field)) {
-        log.error(&quot;Missing &apos;data&apos; field in response: &quot; + field);
-        Failure = true;
-        FailureMessage = &quot;Response &apos;data&apos; object is missing a required field: &quot; + field;
-        return;
-    }
-}
 
 
-JSONArray seriesArray = data.getJSONArray(&quot;series&quot;);
+
+String[] seriesFields = {
+    &quot;series_id&quot;, &quot;name&quot;, &quot;cover_image_url&quot;, &quot;cover_landscape_image_url&quot;, &quot;cover_portrait_image_url&quot;,
+    &quot;category_name&quot;, &quot;category_id&quot;, &quot;product_total&quot;, &quot;released_product_total&quot;, &quot;product_number&quot;,
+    &quot;product_id&quot;, &quot;status&quot;, &quot;is_movie&quot;, &quot;series_image_url&quot;, &quot;product_image_url&quot;, &quot;synopsis&quot;,
+    &quot;user_level&quot;, &quot;free_time&quot;, &quot;premium_time&quot;, &quot;is_free_premium_time&quot;, &quot;offline_time&quot;,
+    &quot;poster_logo_url&quot;, &quot;source_flag&quot;, &quot;allow_tv&quot;, &quot;allow_telstb&quot;
+};
+
 if (seriesArray != null &amp;&amp; seriesArray.length() &gt; 0) {
     for (int i = 0; i &lt; seriesArray.length(); i++) {
-        JSONObject seriesItem = seriesArray.getJSONObject(i);
-        String[] seriesFields = {&quot;id&quot;, &quot;name&quot;, &quot;weight&quot;, &quot;source_flag&quot;};
+        JSONObject series = seriesArray.getJSONObject(i);
         for (String field : seriesFields) {
-            if (!seriesItem.has(field)) {
-                log.error(&quot;Missing field in &apos;series&apos; array at index &quot; + i + &quot;: &quot; + field);
-        		 Failure = true;
-                FailureMessage = &quot;Response &apos;series&apos; array is missing a required field at index &quot; + i + &quot;: &quot; + field;
-                return;
-            }
-        }
-    }
-}
-
-JSONArray actorArray = data.getJSONArray(&quot;actor&quot;);
-if (actorArray != null &amp;&amp; actorArray.length() &gt; 0) {
-    for (int i = 0; i &lt; actorArray.length(); i++) {
-        JSONObject actorItem = actorArray.getJSONObject(i);
-        String[] actorFields = {&quot;id&quot;, &quot;name&quot;};
-        for (String field : actorFields) {
-            if (!actorItem.has(field)) {
-                log.error(&quot;Missing field in &apos;actor&apos; array at index &quot; + i + &quot;: &quot; + field);
+            if (!series.has(field)) {
                 Failure = true;
-                FailureMessage = &quot;Response &apos;actor&apos; array is missing a required field at index &quot; + i + &quot;: &quot; + field;
+                FailureMessage = &quot;Assertion failed: Missing field &apos;&quot; + field + &quot;&apos; in series at index &quot; + i;
+                log.error(FailureMessage);
                 return;
             }
         }
@@ -334,7 +326,62 @@ if (actorArray != null &amp;&amp; actorArray.length() &gt; 0) {
 }
 
 
-Failure = false;</stringProp>
+
+
+String[] movieFields = {
+    &quot;series_id&quot;, &quot;name&quot;, &quot;cover_image_url&quot;, &quot;cover_landscape_image_url&quot;, &quot;cover_portrait_image_url&quot;,
+    &quot;category_name&quot;, &quot;category_id&quot;, &quot;product_total&quot;, &quot;released_product_total&quot;, &quot;product_number&quot;,
+    &quot;product_id&quot;, &quot;status&quot;, &quot;is_movie&quot;, &quot;series_image_url&quot;, &quot;product_image_url&quot;, &quot;synopsis&quot;,
+    &quot;user_level&quot;, &quot;free_time&quot;, &quot;premium_time&quot;, &quot;is_free_premium_time&quot;, &quot;offline_time&quot;,
+    &quot;poster_logo_url&quot;, &quot;source_flag&quot;, &quot;allow_tv&quot;, &quot;allow_telstb&quot;
+};
+
+
+if (movieArray != null &amp;&amp; movieArray.length() &gt; 0) {
+    for (int i = 0; i &lt; movieArray.length(); i++) {
+        JSONObject movie = movieArray.getJSONObject(i);
+        for (String field : movieFields) {
+            if (!movie.has(field)) {
+                Failure = true;
+                FailureMessage = &quot;Assertion failed: Missing field &apos;&quot; + field + &quot;&apos; in movie at index &quot; + i;
+                log.error(FailureMessage);
+                return;
+            }
+        }
+    }
+}
+
+
+
+String[] productFields = {
+    &quot;product_id&quot;, &quot;series_id&quot;, &quot;number&quot;, &quot;free_time&quot;, &quot;premium_time&quot;, &quot;is_free_premium_time&quot;,
+    &quot;series_name&quot;, &quot;status&quot;, &quot;is_movie&quot;, &quot;cover_image_url&quot;, &quot;cover_landscape_image_url&quot;,
+    &quot;cover_portrait_image_url&quot;, &quot;series_image_url&quot;, &quot;product_image_url&quot;, &quot;synopsis&quot;,
+    &quot;offline_time&quot;, &quot;poster_logo_url&quot;, &quot;source_flag&quot;, &quot;allow_tv&quot;, &quot;allow_telstb&quot;,
+    &quot;series_cover_landscape_image_url&quot;, &quot;series_cover_portrait_image_url&quot;, &quot;user_level&quot;,
+    &quot;series_category_id&quot;, &quot;series_category_name&quot;
+};
+
+
+if (productArray != null &amp;&amp; productArray.length() &gt; 0) {
+    for (int i = 0; i &lt; productArray.length(); i++) {
+        JSONObject product = productArray.getJSONObject(i);
+        for (String field : productFields) {
+            if (!product.has(field)) {
+                Failure = true;
+                FailureMessage = &quot;Assertion failed: Missing field &apos;&quot; + field + &quot;&apos; in product at index &quot; + i;
+                log.error(FailureMessage);
+                return;
+            }
+        }
+    }
+}
+
+
+
+// 如果所有字段都存在，断言成功
+log.info(&quot;All required fields are present in the response.&quot;);
+</stringProp>
           <stringProp name="BeanShellAssertion.filename"></stringProp>
           <stringProp name="BeanShellAssertion.parameters"></stringProp>
           <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
