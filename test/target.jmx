@@ -21,7 +21,7 @@
       </ThreadGroup>
       <hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Predict API">
-          <stringProp name="HTTPSampler.domain">dev-1viu-api-gateway.ottuat.com</stringProp>
+          <stringProp name="HTTPSampler.domain">dev-1viu-api-gateway-alb.ottuat.com</stringProp>
           <stringProp name="HTTPSampler.port">80</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
           <stringProp name="HTTPSampler.path">/api/mobile</stringProp>
